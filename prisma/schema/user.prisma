@@ -1,0 +1,25 @@
+model User {
+    id                         String    @id
+    storeId                    String?   @map("store_id")
+    firstName                  String    @map("first_name")
+    lastName                   String    @map("last_name")
+    email                      String    @unique
+    password                   String?
+    document                   String?
+    type                       UserType  @default(admin)
+    createdAt                  DateTime  @default(now()) @map("created_at") @db.Timestamptz()
+    updatedAt                  DateTime? @updatedAt @map("updated_at") @db.Timestamptz()
+    firstAccessToken           String?   @map("first_access_token") @db.VarChar(50)
+    firstAccessTokenExpiration DateTime? @map("first_access_token_expiration") @db.Timestamptz()
+
+    store Store? @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+    @@index([email])
+    @@map("users")
+}
+
+enum UserType {
+    admin
+    store
+    seller
+}
