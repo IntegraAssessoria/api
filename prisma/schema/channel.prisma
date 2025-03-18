@@ -1,4 +1,4 @@
-model BankChannel {
+model Channel {
     id          String    @id
     name        String
     description String?
@@ -7,5 +7,5 @@ model BankChannel {
     createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz()
     updatedAt   DateTime? @updatedAt @map("updated_at") @db.Timestamptz()
 
-    @@map("banks_channels")
+    @@map("channels")
 }

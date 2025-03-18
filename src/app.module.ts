@@ -10,6 +10,7 @@ import { PrismaClient } from '@prisma/client';
 import { PrismaInterceptor } from './middlewares/interceptors/prisma.interceptor';
 import { UserModule } from './api/users/user.module';
 import { StoreModule } from './api/stores/stores.module';
+import { ChannelModule } from './api/channels/channels.module';
 
 @Module({
 	imports: [
@@ -36,6 +37,7 @@ import { StoreModule } from './api/stores/stores.module';
 		AuthModule,
 		UserModule,
 		StoreModule,
+		ChannelModule,
 	],
 	providers: [
 		{

@@ -112,7 +112,8 @@ export class StorageService {
 			});
 
 			return objectName;
-		} catch {
+		} catch (e) {
+			console.log(e);
 			return false;
 		}
 	}
