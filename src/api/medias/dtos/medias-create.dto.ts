@@ -8,8 +8,4 @@ export class MediaCreate {
 	@IsString()
 	@IsOptional()
 	image: string;
-
-	@IsString()
-	@IsOptional()
-	url: string;
 }

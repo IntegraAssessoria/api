@@ -12,6 +12,7 @@ import { UserModule } from './api/users/user.module';
 import { ChannelModule } from './api/channels/channels.module';
 import { MediaModule } from './api/medias/medias.module';
 import { StoreModule } from './api/stores/stores.module';
+import { SintegraModule } from './infrastructure/sintegra/sintegra.module';
 
 @Module({
 	imports: [
@@ -22,7 +23,6 @@ import { StoreModule } from './api/stores/stores.module';
 				limit: 30, // Limite de 5 requisições por segundo
 			},
 		]),
-
 		RedisModule.forRoot({
 			url: `redis://${envConfig.REDIS_USER}:${envConfig.REDIS_PASSWORD}@${envConfig.REDIS_HOST}:${envConfig.REDIS_PORT}`,
 			type: 'single',
@@ -40,6 +40,7 @@ import { StoreModule } from './api/stores/stores.module';
 		StoreModule,
 		ChannelModule,
 		MediaModule,
+		SintegraModule,
 	],
 	providers: [
 		{

@@ -49,7 +49,6 @@ export class MediaService {
 				id: this.helperProvider.generateDbId(),
 				name: body.name,
 				image: body.image,
-				url: body.url,
 			},
 		});
 
@@ -58,10 +57,9 @@ export class MediaService {
 	}
 
 	async update(id: string, body: MediaUpdate) {
-		const { name, url } = body;
 		const updatedMedia = await this.prisma.media.update({
 			where: { id },
-			data: { name, url },
+			data: { name: body.name },
 		});
 
 		await this.redisProvider.del(this.cacheKey);

@@ -24,6 +24,7 @@ export const envConfig = {
 
 	// SintegraWS
 	SINTEGRA_TOKEN: process.env.SINTEGRA_TOKEN,
+	SINTEGRA_URL: process.env.SINTEGRA_URL,
 
 	// Minio
 	STORAGE_PROVIDER: process.env.STORAGE_PROVIDER,

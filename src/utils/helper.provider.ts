@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { createId, init } from '@paralleldrive/cuid2';
 import sizeOf from 'image-size';
 import * as dayjs from 'dayjs';
+import { SintegraCompanyResponse } from 'src/infrastructure/sintegra/types/federal-revenue.response';
 
 @Injectable()
 export class HelperProvider {
@@ -156,5 +157,72 @@ export class HelperProvider {
 		const newMinutes = String(date.getMinutes()).padStart(2, '0');
 
 		return `${newHours}:${newMinutes}`;
+	};
+
+	mapSintegraFederalRevenueFieldsToEnglish = (data: SintegraCompanyResponse) => {
+		return {
+			code: data.code,
+			status: data.status,
+			message: data.message,
+			cnpj: data.cnpj,
+			name: data.nome, // nome -> name
+			fantasyName: data.fantasia, // fantasia -> fantasyName
+			zipCode: data.cep, // cep -> zipCode
+			state: data.uf, // uf -> state
+			municipality: data.municipio, // municipio -> municipality
+			neighborhood: data.bairro, // bairro -> neighborhood
+			streetType: data.tipo_logradouro, // tipo_logradouro -> streetType
+			street: data.logradouro, // logradouro -> street
+			number: data.numero, // numero -> number
+			complement: data.complemento, // complemento -> complement
+			phone: data.telefone, // telefone -> phone
+			email: data.email,
+			socialCapital: data.capital_social, // capital_social -> socialCapital
+			situationDate: data.data_situacao, // data_situacao -> situationDate
+			specialSituationDate: data.data_situacao_especial, // data_situacao_especial -> specialSituationDate
+			openingDate: data.abertura, // abertura -> openingDate
+			situationReason: data.motivo_situacao, // motivo_situacao -> situationReason
+			legalNatureAbbreviation: data.sigla_natureza_juridica, // sigla_natureza_juridica -> legalNatureAbbreviation
+			legalNature: data.natureza_juridica, // natureza_juridica -> legalNature
+			situation: data.situacao, // situacao -> situation
+			specialSituation: data.situacao_especial, // situacao_especial -> specialSituation
+			type: data.tipo, // tipo -> type
+			mainActivity: data.atividade_principal.map((activity) => ({
+				code: activity.code,
+				text: activity.text,
+			})), // atividade_principal -> mainActivity
+			secondaryActivities: data.atividades_secundarias.map((activity) => ({
+				code: activity.code,
+				text: activity.text,
+			})), // atividades_secundarias -> secondaryActivities
+			shareholders: data.qsa.map((shareholder) => ({
+				role: shareholder.qual, // qual -> role
+				legalRepresentativeRole: shareholder.qual_rep_legal, // qual_rep_legal -> legalRepresentativeRole
+				legalRepresentativeName: shareholder.nome_rep_legal, // nome_rep_legal -> legalRepresentativeName
+				countryOfOrigin: shareholder.pais_origem, // pais_origem -> countryOfOrigin
+				name: shareholder.nome, // nome -> name
+				ageGroup: shareholder.faixa_etaria, // faixa_etaria -> ageGroup
+				taxId: shareholder.tax_id, // tax_id -> taxId
+				shareholderType: shareholder.tipo_socio, // tipo_socio -> shareholderType
+				shareholderTypeCode: shareholder.cod_tipo_socio, // cod_tipo_socio -> shareholderTypeCode
+				entryDate: shareholder.data_entrada, // data_entrada -> entryDate
+			})), // qsa -> shareholders
+			lastUpdate: data.ultima_atualizacao, // ultima_atualizacao -> lastUpdate
+			efr: data.efr,
+			extra: data.extra,
+			size: data.porte, // porte -> size
+			ibge: {
+				municipalityCode: data.ibge.codigo_municipio, // codigo_municipio -> municipalityCode
+				stateCode: data.ibge.codigo_uf, // codigo_uf -> stateCode
+				municipalityName: data.ibge.ibge_municipio, // ibge_municipio -> municipalityName
+			},
+			groupCNPJs: data.cnpjs_do_grupo.map((group) => ({
+				cnpj: group.cnpj,
+				state: group.uf, // uf -> state
+				type: group.tipo, // tipo -> type
+			})), // cnpjs_do_grupo -> groupCNPJs
+			municipalRegistration: data.inscricao_municipal, // inscricao_municipal -> municipalRegistration
+			version: data.version,
+		};
 	};
 }
