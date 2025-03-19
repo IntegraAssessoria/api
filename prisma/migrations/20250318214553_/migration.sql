@@ -2,7 +2,7 @@
 CREATE TYPE "UserType" AS ENUM ('admin', 'store', 'seller');
 
 -- CreateTable
-CREATE TABLE "banks_channels" (
+CREATE TABLE "channels" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT,
@@ -11,7 +11,7 @@ CREATE TABLE "banks_channels" (
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMPTZ,
 
-    CONSTRAINT "banks_channels_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "channels_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -29,7 +29,7 @@ CREATE TABLE "medias" (
 -- CreateTable
 CREATE TABLE "stores" (
     "id" TEXT NOT NULL,
-    "first_name" VARCHAR(255) NOT NULL,
+    "name" TEXT NOT NULL,
     "image" TEXT,
     "default_color" TEXT,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -45,11 +45,13 @@ CREATE TABLE "users" (
     "first_name" TEXT NOT NULL,
     "last_name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
+    "password" TEXT,
     "document" TEXT,
     "type" "UserType" NOT NULL DEFAULT 'admin',
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMPTZ,
+    "first_access_token" VARCHAR(50),
+    "first_access_token_expiration" TIMESTAMPTZ,
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );

@@ -9,8 +9,9 @@ import { AuthModule } from './api/auth/auth.module';
 import { PrismaClient } from '@prisma/client';
 import { PrismaInterceptor } from './middlewares/interceptors/prisma.interceptor';
 import { UserModule } from './api/users/user.module';
-import { StoreModule } from './api/stores/stores.module';
 import { ChannelModule } from './api/channels/channels.module';
+import { MediaModule } from './api/medias/medias.module';
+import { StoreModule } from './api/stores/stores.module';
 
 @Module({
 	imports: [
@@ -38,6 +39,7 @@ import { ChannelModule } from './api/channels/channels.module';
 		UserModule,
 		StoreModule,
 		ChannelModule,
+		MediaModule,
 	],
 	providers: [
 		{

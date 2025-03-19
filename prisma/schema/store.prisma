@@ -1,10 +1,9 @@
 model Store {
-    id           String    @id
-    name         String
-    image        String?
-    defaultColor String?   @map("default_color")
-    createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz()
-    updatedAt    DateTime? @updatedAt @map("updated_at") @db.Timestamptz()
+    id        String    @id
+    name      String
+    image     String?
+    createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz()
+    updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamptz()
 
     users User[]
 

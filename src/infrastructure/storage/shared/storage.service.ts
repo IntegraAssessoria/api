@@ -23,7 +23,6 @@ export class StorageService {
 	async uploadBase64Image(
 		base64Image: string,
 		fileName: string,
-		bucket: string,
 		folder: string,
 		quality: number = 80, // Qualidade da imagem (1-100)
 		width: number, // Largura da imagem
@@ -107,9 +106,15 @@ export class StorageService {
 			objectName = `${folder}/${objectName}`;
 
 			// Faz o upload do buffer processado para o MinIO com o cabeçalho Content-Type correto
-			await this.minioClient.putObject(bucket, objectName, processedBuffer, processedBuffer.length, {
-				'Content-Type': format === 'gif' ? 'image/gif' : 'image/webp',
-			});
+			await this.minioClient.putObject(
+				envConfig.STORAGE_PUBLIC_BUCKET,
+				objectName,
+				processedBuffer,
+				processedBuffer.length,
+				{
+					'Content-Type': format === 'gif' ? 'image/gif' : 'image/webp',
+				},
+			);
 
 			return objectName;
 		} catch (e) {
@@ -143,9 +148,9 @@ export class StorageService {
 		}
 	}
 
-	async removeFile(fileName: string, bucket: string): Promise<boolean> {
+	async removeFile(fileName: string): Promise<boolean> {
 		try {
-			await this.minioClient.removeObject(bucket, fileName);
+			await this.minioClient.removeObject(envConfig.STORAGE_PUBLIC_BUCKET, fileName);
 			return true;
 		} catch {
 			return false;

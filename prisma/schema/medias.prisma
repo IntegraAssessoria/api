@@ -1,4 +1,4 @@
-model Medias {
+model Media {
     id        String    @id
     name      String
     image     String
