@@ -20,7 +20,7 @@ export class SintegraService {
 	private CACHE_BALANCE_KEY = 'cache:sintegra:balance';
 	private CACHE_CNPJ_KEY = 'cache:sintegra:cnpj';
 
-	async balance(): Promise<SintegraBalance | false> {
+	async balance(): Promise<SintegraBalance | { error: string }> {
 		const cached = await this.redisProvider.get<SintegraBalance>(this.CACHE_BALANCE_KEY);
 
 		if (cached) {
@@ -40,11 +40,13 @@ export class SintegraService {
 
 			return response;
 		} catch {
-			return false;
+			return {
+				error: 'Erro ao buscar informações dos créditos',
+			};
 		}
 	}
 
-	async federalRevenueCNPJ(cnpj: string): Promise<SintegraCompanyResponseMapped | false> {
+	async federalRevenueCNPJ(cnpj: string): Promise<SintegraCompanyResponseMapped | { error: string }> {
 		const clearCnpj = this.helperProvider.clearFields(this.helperProvider.clearSpecial(cnpj));
 		const cached = await this.redisProvider.get<SintegraCompanyResponseMapped>(`${this.CACHE_CNPJ_KEY}:${cnpj}`);
 
@@ -55,21 +57,23 @@ export class SintegraService {
 		try {
 			const apiResponse = await firstValueFrom(
 				this.httpService.get<SintegraCompanyResponse>(
-					`${this.URL}/execute-api.php?token=${this.TOKEN}&cnpj=${cnpj}&plugin=RF`,
+					`${this.URL}/execute-api.php?token=${this.TOKEN}&cnpj=${clearCnpj}&plugin=RF`,
 				),
 			);
 
 			const mappedResponse = this.helperProvider.mapSintegraFederalRevenueFieldsToEnglish(apiResponse.data);
 
 			await this.redisProvider.set<SintegraCompanyResponseMapped>(
-				`${this.CACHE_CNPJ_KEY}:${cnpj}`,
+				`${this.CACHE_CNPJ_KEY}:${clearCnpj}`,
 				mappedResponse,
 				86400 * 30,
 			);
 
 			return mappedResponse;
 		} catch {
-			return false;
+			return {
+				error: 'Erro ao buscar informações do CNPJ',
+			};
 		}
 	}
 }

@@ -13,6 +13,7 @@ import { ChannelModule } from './api/channels/channels.module';
 import { MediaModule } from './api/medias/medias.module';
 import { StoreModule } from './api/stores/stores.module';
 import { SintegraModule } from './infrastructure/sintegra/sintegra.module';
+import { PlacaFipeModule } from './infrastructure/placafipe/placafipe.module';
 
 @Module({
 	imports: [
@@ -41,6 +42,7 @@ import { SintegraModule } from './infrastructure/sintegra/sintegra.module';
 		ChannelModule,
 		MediaModule,
 		SintegraModule,
+		PlacaFipeModule,
 	],
 	providers: [
 		{
