@@ -8,13 +8,13 @@ import { JwtAuthGuard } from '../auth/jwt/jwt-auth.guard';
 export class SintegraController {
 	constructor(private readonly sintegraService: SintegraService) {}
 
-	@UseGuards(new JwtAuthGuard(['admin', 'seller', 'store']))
+	@UseGuards(new JwtAuthGuard(['ADMIN']))
 	@Get('/balance')
 	async balance() {
 		return await this.sintegraService.balance();
 	}
 
-	// @UseGuards(new JwtAuthGuard(['admin', 'seller', 'store']))
+	@UseGuards(new JwtAuthGuard())
 	@Get('/:cnpj')
 	async federalRevenueCNPJ(@Param('cnpj') cnpj: string) {
 		return await this.sintegraService.federalRevenueCNPJ(cnpj);

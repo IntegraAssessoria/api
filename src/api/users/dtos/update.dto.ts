@@ -1,4 +1,3 @@
-import { OmitType } from '@nestjs/mapped-types';
 import { UserCreateDto } from './create.dto';
 import { IsOptional, IsString } from 'class-validator';
 

@@ -1,7 +1,21 @@
 export class PlacaFipePlateResponse {
 	codigo: number;
 	msg: string;
-	placa: string;
+	fipe: {
+		similaridade: string;
+		correspondencia: string;
+		marca: string;
+		modelo: string;
+		ano_modelo: number;
+		codigo_fipe: string;
+		codigo_marca: string;
+		codigo_modelo: string;
+		mes_referencia: string;
+		combustivel: string;
+		valor: string;
+		desvalorizometro: string;
+		unidade_valor: string;
+	}[];
 	informacoes_veiculo: {
 		marca: string;
 		modelo: string;
@@ -17,27 +31,40 @@ export class PlacaFipePlateResponse {
 		placa: string;
 	};
 	tempo: number;
+	undiade_tempo: string;
 	unidade_tempo: string;
+	algoritmo: string;
+	placa: string;
 }
 
 export class PlacaFipePlateMapped {
-	code: number;
-	message: string;
-	plate: string;
-	vehicle_information: {
+	fipe: {
+		similarity: string;
+		match: string;
+		brand: string;
+		model: string;
+		modelYear: number;
+		fipeCode: string;
+		brandCode: string;
+		modelCode: string;
+		referenceMonth: string;
+		fuel: string;
+		value: string;
+		depreciationMeter: string;
+		valueUnit: string;
+	};
+	vehicleInformation: {
 		brand: string;
 		model: string;
 		year: string;
-		model_year: string;
+		modelYear: string;
 		color: string;
 		chassis: string;
 		engine: string;
 		city: string;
 		state: string;
 		segment: string;
-		sub_segment: string;
-		plate: string;
+		subSegment: string;
+		licensePlate: string;
 	};
-	time: number;
-	time_unit: string;
 }

@@ -4,9 +4,9 @@ model User {
     firstName                  String    @map("first_name")
     lastName                   String    @map("last_name")
     email                      String    @unique
-    password                   String?
     document                   String?
-    type                       UserType  @default(admin)
+    password                   String?
+    type                       UserType  @default(ADMIN)
     createdAt                  DateTime  @default(now()) @map("created_at") @db.Timestamptz()
     updatedAt                  DateTime? @updatedAt @map("updated_at") @db.Timestamptz()
     firstAccessToken           String?   @map("first_access_token") @db.VarChar(50)
@@ -19,7 +19,8 @@ model User {
 }
 
 enum UserType {
-    admin
-    store
-    seller
+    ADMIN
+    STORE
+    CONSULTANT
+    AGENT
 }

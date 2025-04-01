@@ -7,7 +7,7 @@ export const LoggedUser = createParamDecorator((data, ctx: ExecutionContext): Lo
 	const loggedUser = request.user as LoggedUserType;
 
 	loggedUser.conditionStoreId = {
-		...(loggedUser.type !== UserType.admin && { storeId: loggedUser.storeId }),
+		...(loggedUser.type !== UserType.ADMIN && { storeId: loggedUser.storeId }),
 	};
 
 	return loggedUser;

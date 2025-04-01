@@ -1,0 +1,45 @@
+model Proposal {
+    id                String              @id
+    customerId        String              @unique
+    type              ProposalType        @default(FINANCING)
+    vehicleType       ProposalVehicleType @map("vehicle_type") // Tipo de veículo relacionado à proposta
+    newVehicle        Boolean             @map("new_vehicle") // Indica se o veículo é novo ou usado
+    plate             String // Placa do veículo
+    manufacturingYear Int                 @map("manufacturing_year") // Ano de fabricação do veículo
+    modelYear         Int                 @map("model_year") // Ano do modelo do veículo
+    brandFipeCode     String              @map("brand_fipe_code") // Identificador da marca do veículo
+    modelFipeId       String              @map("model_fipe_id") // Identificador do modelo do veículo
+    fipeCode          String              @map("fipe_codde") // Código FIPE do veículo
+    fipeValue         Float               @map("fipe_value") // Valor FIPE do veículo
+    color             String // Cor do veículo
+    buyValue          Float               @map("buy_value") // Valor de compra do veículo
+    inputValue        Float               @map("input_value") // Valor da entrada no financiamento
+    financedValue     Float               @map("financed_value") // Valor financiado
+    installmentTime   Int                 @map("installment_time") // Tempo de pagamento em meses
+    installmentValue  Float               @map("installment_value") // Valor da parcela do financiamento
+    customerType      CustomerType        @map("customer_type") // Tipo de cliente (pessoa física ou jurídica)
+
+    createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz()
+    updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamptz()
+
+    customer ProposalCustomer?
+    messages ProposalMessage[]
+
+    @@map("proposals")
+}
+
+enum ProposalType {
+    FINANCING // Proposta de financiamento
+    REFINANCING // Proposta de refinanciamento
+}
+
+enum ProposalVehicleType {
+    CARS // Carros and vans
+    TRUCKS_BUS // Caminhões e ônibus
+    MOTORCYCLES // Motocicletas
+}
+
+enum CustomerType {
+    PEOPLE // Pessoa física
+    COMPANY // Pessoa jurídica
+}

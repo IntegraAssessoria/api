@@ -1,0 +1,67 @@
+model ProposalCustomer {
+    id                String                           @id
+    proposalId        String                           @unique
+    name              String
+    cpf               String
+    rg                String
+    motherName        String                           @map("mother-name") // nome da mãe
+    birthDate         String                           @map("birth_date") // Data de nascimento do cliente
+    nationality       String                           @map("nationality") // Nacionalidade do cliente
+    gender            ProposalCustomerPeopleGender // Gênero do cliente (relacionado ao enum ProposalCustomerPeopleGender)
+    maritalStatus     ProposalCustomerMaritalStatus    @map("marital_status") // Estado civil do cliente
+    spouseName        String?                          @map("spouse_name") // Nome do cônjuge (opcional)
+    spouseCpf         String?                          @map("spouse_cpf") // CPF do cônjuge (opcional)
+    email             String // E-mail do cliente
+    phone             String // Número de telefone do cliente
+    occupation        ProposalCustomerPeopleOccupation // Ocupação do cliente (relacionado ao enum ProposalCustomerPeopleOccupation)
+    profession        String                           @map("profession") // Profissão do cliente
+    income            Float                            @map("income") // Renda do cliente
+    zipCode           String                           @map("zip_code") // CEP do cliente
+    address           String                           @map("address") // Endereço do cliente
+    number            String                           @map("number") // Número do endereço
+    complement        String                           @map("complement") // Complemento do endereço
+    neighborhood      String                           @map("neighborhood") // Bairro do cliente
+    city              String                           @map("city") // Cidade do cliente
+    state             String                           @map("state") // Estado do cliente
+    rent              String? // Renda do cliente
+    companyCnpj       String?                          @map("company_cnpj") // CNPJ da empresa (se aplicável)
+    companyName       String?                          @map("company_name") // Nome da empresa (se aplicável)
+    companyZipCode    String?                          @map("company_zip_code") // CEP da empresa (se aplicável)
+    companyAddress    String?                          @map("company_address") // Endereço da empresa (se aplicável)
+    companyCity       String?                          @map("company_city") // Cidade da empresa (se aplicável)
+    companyState      String?                          @map("company_state") // Estado da empresa (se aplicável)
+    billingLastmonths Float                            @map("billing_last-months") // Faturamento dos últimso 12 meses
+
+    createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz()
+    updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamptz()
+
+    proposal Proposal @relation(fields: [proposalId], references: [id], onDelete: Cascade)
+
+    @@map("proposals_customers")
+}
+
+enum ProposalCustomerPeopleGender {
+    FEMALE // Feminino
+    MALE // Masculino
+}
+
+enum ProposalCustomerPeopleMaritalStatus {
+    SINGLE // Solteiro(a)
+    WIDOWED // Viúvo(a)
+    DIVORCED // Divorciado(a)
+    MARRIED // Casado(a)
+}
+
+enum ProposalCustomerPeopleOccupation {
+    EMPLOYED // Empregado
+    BUSINESS_OWNER_SELF_EMPLOYED // Empresário/Autônomo
+    LIBERAL_PROFESSIONAL // Profissional liberal
+    RETIRED // Aposentado
+}
+
+enum ProposalCustomerMaritalStatus {
+    SINGLE
+    WIDOWED
+    SEPARATED
+    MARRIED
+}

@@ -15,19 +15,19 @@ export class ChannelController {
 		return await this.channelService.getAll();
 	}
 
-	@UseGuards(new JwtAuthGuard(['admin']))
+	@UseGuards(new JwtAuthGuard(['ADMIN']))
 	@Post()
 	async create(@Body() body: ChannelCreate) {
 		return await this.channelService.create(body);
 	}
 
-	@UseGuards(new JwtAuthGuard(['admin']))
+	@UseGuards(new JwtAuthGuard(['ADMIN']))
 	@Put('/:id')
 	async update(@Param('id') id: string, @Body() body: ChannelUpdate) {
 		return await this.channelService.update(id, body);
 	}
 
-	@UseGuards(new JwtAuthGuard(['admin']))
+	@UseGuards(new JwtAuthGuard(['ADMIN']))
 	@Delete('/:id')
 	async delete(@Param('id') id: string) {
 		return await this.channelService.delete(id);

@@ -3,12 +3,13 @@ import { Module } from '@nestjs/common';
 import { RedisProvider } from '../redis/redis';
 import { HelperProvider } from 'src/utils/helper.provider';
 import { PlacaFipeService } from './shared/placafipe.service';
-import { PlacaFipeController } from 'src/api/placafipe/placafipe.controller';
+import { PrismaService } from 'src/prisma.service';
+import { VehicleController } from 'src/api/vehicle/vehicle.controller';
 
 @Module({
 	imports: [HttpModule],
-	providers: [PlacaFipeService, RedisProvider, HelperProvider],
+	providers: [PlacaFipeService, RedisProvider, HelperProvider, PrismaService],
 	exports: [PlacaFipeService],
-	controllers: [PlacaFipeController],
+	controllers: [VehicleController],
 })
-export class PlacaFipeModule {}
+export class VehicleModule {}

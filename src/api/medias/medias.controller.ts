@@ -15,19 +15,19 @@ export class MediaController {
 		return await this.mediaService.getAll();
 	}
 
-	@UseGuards(new JwtAuthGuard(['admin']))
+	@UseGuards(new JwtAuthGuard(['ADMIN']))
 	@Post()
 	async create(@Body() body: MediaCreate) {
 		return await this.mediaService.create(body);
 	}
 
-	@UseGuards(new JwtAuthGuard(['admin']))
+	@UseGuards(new JwtAuthGuard(['ADMIN']))
 	@Put('/:id')
 	async update(@Param('id') id: string, @Body() body: MediaUpdate) {
 		return await this.mediaService.update(id, body);
 	}
 
-	@UseGuards(new JwtAuthGuard(['admin']))
+	@UseGuards(new JwtAuthGuard(['ADMIN']))
 	@Delete('/:id')
 	async delete(@Param('id') id: string) {
 		return await this.mediaService.delete(id);

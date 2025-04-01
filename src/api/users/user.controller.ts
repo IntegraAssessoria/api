@@ -12,31 +12,31 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 export class UserController {
 	constructor(private readonly userService: UserService) {}
 
-	@UseGuards(new JwtAuthGuard(['admin', 'store', 'seller']))
+	@UseGuards(new JwtAuthGuard(['ADMIN', 'STORE', 'CONSULTANT']))
 	@Get()
 	async getAll(@LoggedUser() loggedUser: LoggedUserType) {
 		return await this.userService.getAll(loggedUser);
 	}
 
-	@UseGuards(new JwtAuthGuard(['admin', 'store']))
+	@UseGuards(new JwtAuthGuard(['ADMIN', 'STORE']))
 	@Get('/:id')
 	async getUniq(@Param('id') id: string, @LoggedUser() loggedUser: LoggedUserType) {
 		return await this.userService.getUniq(id, loggedUser);
 	}
 
-	@UseGuards(new JwtAuthGuard(['admin', 'store']))
+	@UseGuards(new JwtAuthGuard(['ADMIN', 'STORE']))
 	@Post()
 	async create(@Body() body: UserCreateDto, @LoggedUser() loggedUser: LoggedUserType) {
 		return await this.userService.create(body, loggedUser);
 	}
 
-	@UseGuards(new JwtAuthGuard(['admin', 'store']))
+	@UseGuards(new JwtAuthGuard(['ADMIN', 'STORE']))
 	@Put('/:id')
 	async update(@Param('id') id: string, @Body() user: UserUpdateDto, @LoggedUser() loggedUser: LoggedUserType) {
 		return await this.userService.update(id, user, loggedUser);
 	}
 
-	@UseGuards(new JwtAuthGuard(['admin', 'store']))
+	@UseGuards(new JwtAuthGuard(['ADMIN', 'STORE']))
 	@Delete('/:id')
 	async remove(@Param('id') id: string, @LoggedUser() loggedUser: LoggedUserType) {
 		return await this.userService.remove(id, loggedUser);

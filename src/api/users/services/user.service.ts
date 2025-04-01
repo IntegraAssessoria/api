@@ -69,7 +69,7 @@ export class UserService {
 	}
 
 	async create(user: UserCreateDto, loggedUser: LoggedUserType) {
-		if (loggedUser.type !== UserType.admin && user.type === UserType.admin) {
+		if (loggedUser.type !== UserType.ADMIN && user.type === UserType.ADMIN) {
 			throw new BadRequestException('Você não pode criar esse tipo de usuário');
 		}
 

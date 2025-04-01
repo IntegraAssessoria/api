@@ -27,11 +27,11 @@ export class UserCreateDto {
 
 	@ApiProperty({
 		description: 'User role',
-		example: 'admin',
-		enum: ['admin', 'store', 'seller'],
+		example: 'ADMIN',
+		enum: ['ADMIN', 'store', 'seller'],
 	})
 	@IsString()
 	@IsNotEmpty()
-	@IsIn(['admin', 'store', 'seller'])
+	@IsIn(['ADMIN', 'store', 'seller'])
 	type: UserType;
 }

@@ -5,7 +5,7 @@ import { LoggedUserType } from 'src/middlewares/decorators/logged-user';
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
-	constructor(private readonly userType: UserType[]) {
+	constructor(private readonly userType: UserType[] = []) {
 		super();
 	}
 
@@ -20,7 +20,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
 			const request = context.switchToHttp().getRequest();
 			const user = request.user as LoggedUserType;
 
-			if (!this.userType.includes(user.type)) {
+			if (this.userType.length > 0 && !this.userType.includes(user.type)) {
 				throw new UnauthorizedException();
 			}
 

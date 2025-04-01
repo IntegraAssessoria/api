@@ -7,6 +7,10 @@ import {
 	SintegraCompanyResponseMapped,
 } from 'src/infrastructure/sintegra/types/federal-revenue.response';
 import { PlacaFipePlateMapped, PlacaFipePlateResponse } from 'src/infrastructure/placafipe/types/plate-response';
+import {
+	PlacaFipeModelDataResponse,
+	PlacaFipeModelResponseMapped,
+} from 'src/infrastructure/placafipe/types/models-response';
 
 @Injectable()
 export class HelperProvider {
@@ -112,7 +116,7 @@ export class HelperProvider {
 		const dimensions = sizeOf(buffer) as {
 			height: number;
 			width: number;
-			type: string;
+			type;
 		};
 
 		return dimensions;
@@ -165,25 +169,44 @@ export class HelperProvider {
 
 	mapPlacaFipePlateToEnglish = (data: PlacaFipePlateResponse): PlacaFipePlateMapped => {
 		return {
-			code: data?.codigo ?? null,
-			message: data?.msg ?? null,
-			plate: data?.placa ?? null,
-			vehicle_information: {
-				brand: data?.informacoes_veiculo?.marca ?? null,
-				model: data?.informacoes_veiculo?.modelo ?? null,
-				year: data?.informacoes_veiculo?.ano ?? null,
-				model_year: data?.informacoes_veiculo?.ano_modelo ?? null,
-				color: data?.informacoes_veiculo?.cor ?? null,
-				chassis: data?.informacoes_veiculo?.chassi ?? null,
-				engine: data?.informacoes_veiculo?.motor ?? null,
-				city: data?.informacoes_veiculo?.municipio ?? null,
-				state: data?.informacoes_veiculo?.uf ?? null,
-				segment: data?.informacoes_veiculo?.segmento ?? null,
-				sub_segment: data?.informacoes_veiculo?.sub_segmento ?? null,
-				plate: data?.informacoes_veiculo?.placa ?? null,
+			fipe: {
+				similarity: data?.fipe[0].similaridade,
+				match: data?.fipe[0].correspondencia,
+				brand: data?.fipe[0].marca,
+				model: data?.fipe[0].modelo,
+				modelYear: Number(data?.fipe[0].codigo_fipe),
+				fipeCode: data?.fipe[0].codigo_marca,
+				brandCode: data?.fipe[0].codigo_marca,
+				modelCode: data?.fipe[0].codigo_modelo,
+				referenceMonth: data?.fipe[0].mes_referencia,
+				fuel: data?.fipe[0].combustivel,
+				value: data?.fipe[0].valor,
+				depreciationMeter: data?.fipe[0].desvalorizometro,
+				valueUnit: data?.fipe[0].unidade_valor,
 			},
-			time: data?.tempo ?? null,
-			time_unit: data?.unidade_tempo ?? null,
+			vehicleInformation: {
+				brand: data?.informacoes_veiculo.marca,
+				model: data?.informacoes_veiculo.modelo,
+				year: data?.informacoes_veiculo.ano,
+				modelYear: data?.informacoes_veiculo.ano_modelo,
+				color: data?.informacoes_veiculo.cor,
+				chassis: data?.informacoes_veiculo.chassi,
+				engine: data?.informacoes_veiculo.motor,
+				city: data?.informacoes_veiculo.municipio,
+				state: data?.informacoes_veiculo.uf,
+				segment: data?.informacoes_veiculo.segmento,
+				subSegment: data?.informacoes_veiculo.sub_segmento,
+				licensePlate: data?.informacoes_veiculo.placa,
+			},
+		};
+	};
+
+	mapPlacaFipeModelsToEnglish = (data: PlacaFipeModelDataResponse): PlacaFipeModelResponseMapped => {
+		return {
+			brand: data?.codigo_modelo,
+			description: data?.descricao,
+			fipeCode: data?.codigo_fipe,
+			modelCode: data?.codigo_modelo,
 		};
 	};
 

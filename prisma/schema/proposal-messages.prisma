@@ -1,0 +1,11 @@
+model ProposalMessage {
+    id         String @id
+    proposalId String
+    message    String
+
+    createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+
+    proposal Proposal @relation(fields: [proposalId], references: [id], onDelete: Cascade)
+
+    @@map("proposals_messages")
+}

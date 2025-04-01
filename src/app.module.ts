@@ -1,3 +1,4 @@
+import { ScheduleModule } from '@nestjs/schedule';
 import { ConfigModule } from '@nestjs/config';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
@@ -13,11 +14,12 @@ import { ChannelModule } from './api/channels/channels.module';
 import { MediaModule } from './api/medias/medias.module';
 import { StoreModule } from './api/stores/stores.module';
 import { SintegraModule } from './infrastructure/sintegra/sintegra.module';
-import { PlacaFipeModule } from './infrastructure/placafipe/placafipe.module';
+import { VehicleModule } from './infrastructure/placafipe/placafipe.module';
 
 @Module({
 	imports: [
 		ConfigModule.forRoot({ isGlobal: true }),
+		ScheduleModule.forRoot(),
 		ThrottlerModule.forRoot([
 			{
 				ttl: 1000, // Tempo em segundos (1 segundo)
@@ -42,7 +44,7 @@ import { PlacaFipeModule } from './infrastructure/placafipe/placafipe.module';
 		ChannelModule,
 		MediaModule,
 		SintegraModule,
-		PlacaFipeModule,
+		VehicleModule,
 	],
 	providers: [
 		{

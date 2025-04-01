@@ -15,19 +15,19 @@ export class StoreController {
 		return await this.storeService.getAll();
 	}
 
-	@UseGuards(new JwtAuthGuard(['admin']))
+	@UseGuards(new JwtAuthGuard(['ADMIN']))
 	@Post()
 	async create(@Body() body: StoreCreate) {
 		return await this.storeService.create(body);
 	}
 
-	@UseGuards(new JwtAuthGuard(['admin']))
+	@UseGuards(new JwtAuthGuard(['ADMIN']))
 	@Put('/:id')
 	async update(@Param('id') id: string, @Body() body: StoreUpdate) {
 		return await this.storeService.update(id, body);
 	}
 
-	@UseGuards(new JwtAuthGuard(['admin']))
+	@UseGuards(new JwtAuthGuard(['ADMIN']))
 	@Delete('/:id')
 	async delete(@Param('id') id: string) {
 		return await this.storeService.delete(id);

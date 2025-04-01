@@ -31,14 +31,14 @@ export class AuthPasswordController {
 	}
 
 	// Para solicitação de alteração de senha logado
-	@UseGuards(new JwtAuthGuard(['admin']))
+	@UseGuards(new JwtAuthGuard(['ADMIN']))
 	@Post('request-change')
 	async requestChangePassword(@LoggedUser() loggedUser: LoggedUserType) {
 		return await this.authPassword.requestCodeChangePassword(loggedUser);
 	}
 
 	// Para alteração de senha logado
-	@UseGuards(new JwtAuthGuard(['admin']))
+	@UseGuards(new JwtAuthGuard(['ADMIN']))
 	@Post('change')
 	async changePassword(@Body() changePassword: ChangePasswordDTO, @LoggedUser() loggedUser: LoggedUserType) {
 		return await this.authPassword.changePassword(changePassword, loggedUser);
