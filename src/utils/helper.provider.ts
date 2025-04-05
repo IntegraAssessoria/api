@@ -168,22 +168,24 @@ export class HelperProvider {
 	};
 
 	mapPlacaFipePlateToEnglish = (data: PlacaFipePlateResponse): PlacaFipePlateMapped => {
+		const fipe = data?.fipe.map((item) => ({
+			similarity: item.similaridade,
+			match: item.correspondencia,
+			brand: item.marca,
+			model: item.modelo,
+			modelYear: Number(item.ano_modelo),
+			fipeCode: item.codigo_fipe,
+			brandCode: item.codigo_marca,
+			modelCode: item.codigo_modelo,
+			referenceMonth: item.mes_referencia,
+			fuel: item.combustivel,
+			value: item.valor,
+			depreciationMeter: item.desvalorizometro,
+			valueUnit: item.unidade_valor,
+		}));
+
 		return {
-			fipe: {
-				similarity: data?.fipe[0].similaridade,
-				match: data?.fipe[0].correspondencia,
-				brand: data?.fipe[0].marca,
-				model: data?.fipe[0].modelo,
-				modelYear: Number(data?.fipe[0].codigo_fipe),
-				fipeCode: data?.fipe[0].codigo_marca,
-				brandCode: data?.fipe[0].codigo_marca,
-				modelCode: data?.fipe[0].codigo_modelo,
-				referenceMonth: data?.fipe[0].mes_referencia,
-				fuel: data?.fipe[0].combustivel,
-				value: data?.fipe[0].valor,
-				depreciationMeter: data?.fipe[0].desvalorizometro,
-				valueUnit: data?.fipe[0].unidade_valor,
-			},
+			fipe: fipe,
 			vehicleInformation: {
 				brand: data?.informacoes_veiculo.marca,
 				model: data?.informacoes_veiculo.modelo,

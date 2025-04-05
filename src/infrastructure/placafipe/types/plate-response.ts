@@ -52,7 +52,7 @@ export class PlacaFipePlateMapped {
 		value: string;
 		depreciationMeter: string;
 		valueUnit: string;
-	};
+	}[];
 	vehicleInformation: {
 		brand: string;
 		model: string;
